@@ -13,6 +13,7 @@ import java.util.List;
 @RequestMapping(path = "api/v1/categories")
 public class CategoryController {
 
+//    there maybe more things to add
     private final CategoryService categoryService;
     @Autowired
     public CategoryController(CategoryService categoryService){
