@@ -1,5 +1,7 @@
 package com.example.foodiebuy.models;
 
+import com.example.foodiebuy.enums.UserRoles;
+
 import javax.persistence.*;
 
 @Entity
@@ -23,6 +25,9 @@ public class Customer {
     private String customerEmail;
     @Column( name = "customer_password", nullable = false)
     private String customerPassword;
+
+    @Column(name = "role", nullable = false)
+    private UserRoles role;
     @Column( name = "customer_address", nullable = false)
     private String customerAddress;
     @Column( name = "customer_contact", nullable = false)
@@ -31,19 +36,21 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(Long customerId, String customerName, String customerEmail, String customerPassword, String customerAddress, String customerContact) {
+    public Customer(Long customerId, String customerName, String customerEmail, String customerPassword, UserRoles role, String customerAddress, String customerContact) {
         this.customerId = customerId;
         this.customerName = customerName;
         this.customerEmail = customerEmail;
         this.customerPassword = customerPassword;
+        this.role = role;
         this.customerAddress = customerAddress;
         this.customerContact = customerContact;
     }
 
-    public Customer(String customerName, String customerEmail, String customerPassword, String customerAddress, String customerContact) {
+    public Customer(String customerName, String customerEmail, String customerPassword, UserRoles role, String customerAddress, String customerContact) {
         this.customerName = customerName;
         this.customerEmail = customerEmail;
         this.customerPassword = customerPassword;
+        this.role = role;
         this.customerAddress = customerAddress;
         this.customerContact = customerContact;
     }
@@ -80,6 +87,14 @@ public class Customer {
         this.customerPassword = customerPassword;
     }
 
+    public UserRoles getRole() {
+        return role;
+    }
+
+    public void setRole(UserRoles role) {
+        this.role = role;
+    }
+
     public String getCustomerAddress() {
         return customerAddress;
     }
@@ -103,6 +118,7 @@ public class Customer {
                 ", customerName='" + customerName + '\'' +
                 ", customerEmail='" + customerEmail + '\'' +
                 ", customerPassword='" + customerPassword + '\'' +
+                ", role=" + role +
                 ", customerAddress='" + customerAddress + '\'' +
                 ", customerContact='" + customerContact + '\'' +
                 '}';
