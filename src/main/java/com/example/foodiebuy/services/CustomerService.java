@@ -17,39 +17,40 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-@Service @Transactional @RequiredArgsConstructor
-public class CustomerService implements UserDetailsService {
+public interface CustomerService{
 
-    private final PasswordEncoder passwordEncoder;
-    private final CustomerRepository customerRepository;
+    Customer saveCustomer(Customer customer);
+    Customer getCustomer(String email);
+    List<Customer>getCustomers();
 
-
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Customer customer = customerRepository.findByCustomerEmail(email);
-        if (customer == null){
-            throw new UsernameNotFoundException("User Not found");
-        }
-
-        Collection<SimpleGrantedAuthority> authority = new ArrayList<>();
-        authority.add(new SimpleGrantedAuthority(customer.getRole().toString()));
-
-        return new User(customer.getCustomerEmail(), customer.getCustomerPassword(), authority);
-    }
-
-    @Autowired
-    public List<Customer> getCustomers() {
-            return customerRepository.findAll();
-    }
-
-    public Customer saveCustomer(Customer customer){
-
-        customer.setCustomerPassword(passwordEncoder.encode(customer.getCustomerPassword()));
-
-        return customerRepository.save(customer);
-
-    }
-
-
+//    private final PasswordEncoder passwordEncoder;
+//    private final CustomerRepository customerRepository;
+//
+//
+//    @Override
+//    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+//        Customer customer = customerRepository.findByCustomerEmail(email);
+//        if (customer == null){
+//            throw new UsernameNotFoundException("User Not found");
+//        }
+//
+//        Collection<SimpleGrantedAuthority> authority = new ArrayList<>();
+//        authority.add(new SimpleGrantedAuthority(customer.getRole().toString()));
+//
+//        return new User(customer.getCustomerEmail(), customer.getCustomerPassword(), authority);
+//    }
+//
+//    @Autowired
+//    public List<Customer> getCustomers() {
+//            return customerRepository.findAll();
+//    }
+//
+//    public Customer saveCustomer(Customer customer){
+//
+//        customer.setCustomerPassword(passwordEncoder.encode(customer.getCustomerPassword()));
+//
+//        return customerRepository.save(customer);
+//
+//    }
 
 }
